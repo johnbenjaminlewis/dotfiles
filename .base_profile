@@ -1,4 +1,10 @@
+##
+## This is the base profile runtime configuration. This script should be
+## OS-Agnostic, and imported before the
+##
+
 LS_OPTS="--color=auto --group-directories-first"
+alias ls="ls $LS_OPTS"
 alias ll="ls -Falh $LS_OPTS"
 alias l="ls -Flh $LS_OPTS"
 
@@ -7,15 +13,12 @@ if ! pgrep -i 'ssh-agent' &> /dev/null; then
 fi
 ssh-add ~/.ssh/*.pem 2> /dev/null > /dev/null
 
-## Mouse/Touchpad
-synclient PalmDetect=1
-synclient RBCornerButton=2
-
-
 ## Customize Environment
 export CLICOLOR=1
 export EDITOR='vim'
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export PAGER='less'
-export PATH="/opt/local/bin:/opt/local/libexec/gnubin:$HOME/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 export TERM='xterm-256color'

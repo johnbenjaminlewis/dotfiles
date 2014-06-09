@@ -1,0 +1,12 @@
+## This is my osx runtime configuration file
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# source base profile config
+. $DIR/.base_profile
+
+# Custom PATH for osx
+export PATH="/opt/local/bin:/opt/local/libexec/gnubin:$PATH"
+
+## Set up mouse button definitions
+synclient PalmDetect=1
+synclient RBCornerButton=2
