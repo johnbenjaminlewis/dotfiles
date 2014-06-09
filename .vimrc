@@ -23,6 +23,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'vim-perl/vim-perl'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'vim-scripts/Jinja'
 
 " Bottom status bar
 Bundle 'bling/vim-airline'
@@ -299,12 +300,18 @@ autocmd BufNewFile,BufRead *.hs set nospell
 " TO LIST THE LOADED SCRIPTS
 " :scriptnames 
 
+" Python Stuff
+let python_highlight_all=1
+highlight BadWhitespace ctermbg=red guibg=red
+" Display tabs at the beginning of a line in Python mode as bad.
+au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t+/
+" " Make trailing whitespace be flagged as bad.
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s+$/
+au BufNewFile,BufRead *.j2 set filetype=jinja
+" au BufWinEnter *.py,*.pyw set filetype=python
 
-" I'm migrating to SCons for my build needs
-autocmd BufReadPre Sconstruct set filetype=python
-set makeprg=scons\ -D
-map <F8> :make<CR>
-map <F9> :make run<CR>
+" uglify chars past the 80 col limit
+au BufWinEnter *.py,*.pyw let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 
 " Haskell
 au BufEnter *.hs compiler ghc
