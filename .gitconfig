@@ -1,0 +1,25 @@
+[diff]
+	tool = vimdiff
+	renames = copies
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr, %cn)%Creset' --abbrev-commit --date=relative
+    hist = log --graph --pretty=format:'%h %ad | %s%d [%an]' --date=short
+    last = log -1 HEAD
+    unstage = reset HEAD --
+    amend = commit --amend -C HEAD
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+[merge]
+	tool = vimdiff
+[user]
+	email = ben@keep.com
+	name = b
+[advice]
+	statusHints = false
+[core]
+	whitespace = trailing-space,space-before-tab
