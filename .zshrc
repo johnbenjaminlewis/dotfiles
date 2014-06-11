@@ -48,7 +48,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git-alias git macports virtualenvwrapper pip python perl command-not-found cpanm git-extras gitfast vagrant gem)
+plugins=(brew command-not-found cpanm gem git git-alias git-fast git-extras macports pip python perl vagrant virtualenvwrapper)
 
 source $ZSH/oh-my-zsh.sh
 
