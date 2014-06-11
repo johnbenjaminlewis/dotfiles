@@ -18,8 +18,10 @@
 	tool = vimdiff
 [user]
 	email = ben@keep.com
-	name = b
+	name = Ben Lewis
 [advice]
 	statusHints = false
 [core]
 	whitespace = trailing-space,space-before-tab
+[color]
+	ui = true
