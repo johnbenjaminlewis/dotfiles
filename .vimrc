@@ -25,6 +25,9 @@ Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'vim-scripts/Jinja'
 
+"Json syntax
+Bundle 'elzr/vim-json'
+
 " Bottom status bar
 Bundle 'bling/vim-airline'
 
@@ -64,6 +67,15 @@ filetype plugin indent on     " required!
 :map <C-n> :NERDTreeToggle<CR>
 autocmd vimenter * if (!argc()) | NERDTree | endif
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == 'primary') | q | endif
+
+"Comments
+if !exists("*TimeStamp")
+  fun TimeStamp()
+    return "--BL (" . strftime("%d %b %Y %X") . ")"
+  endfun
+endif
+
+iab JBL <C-R>=TimeStamp()<cr>
 
 "=> Set Vim user enviroment 
 let mapleader = ","

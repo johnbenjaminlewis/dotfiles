@@ -53,4 +53,4 @@ plugins=(git-alias git macports virtualenvwrapper pip python perl command-not-fo
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-# source ~/.profile is automatically handled by oh-my-zsh
+source ~/.profile
