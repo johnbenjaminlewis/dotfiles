@@ -1,17 +1,21 @@
 ##
 ## This is the base profile runtime configuration. This script should be
-## OS-Agnostic, and imported before the
+## OS-Agnostic, and imported before the OS-specific profiles are
 ##
-
 LS_OPTS="--color=auto --group-directories-first"
 alias ls="ls $LS_OPTS"
 alias ll="ls -Falh $LS_OPTS"
 alias l="ls -Flh $LS_OPTS"
 
-if ! pgrep -i 'ssh-agent' &> /dev/null; then 
+# Start SSH agent if not already started
+if ! pgrep 'ssh-agent'; then 
     ssh-agent 2> /dev/null > /dev/null
 fi
-ssh-add ~/.ssh/*.pem 2> /dev/null > /dev/null
+
+# Add keys if SSH directory exists
+if [ -d "$HOME/.ssh" ]; then
+    ssh-add ~/.ssh/*.pem 2> /dev/null > /dev/null
+fi
 
 ## Customize Environment
 export CLICOLOR=1
