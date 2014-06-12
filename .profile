@@ -30,19 +30,16 @@ setup_mouse() {
 
 # Runs only for osx
 run_mac() {
-    echo "mac"
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/local/sbin:$PATH"
 }
 
 # Runs only for linux
 run_linux() {
-    echo "linux"
     setup_mouse
 }
 
 # Runs for all os types. Runs last
 run_all() {
-    echo "all"
     LS_OPTS="--color=auto --group-directories-first"
 
     alias ls="ls $LS_OPTS"
@@ -63,7 +60,7 @@ run_all() {
 # Main runner
 if [[ "$OSTYPE" == "darwin"* ]]; then
     run_mac
-elif [ "$OSTYPE" == "linux-gnu"; then
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     run_linux
 fi
 
