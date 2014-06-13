@@ -24,6 +24,7 @@ Bundle 'vim-perl/vim-perl'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'vim-scripts/Jinja'
+Bundle 'wincent/Command-T'
 
 "Json syntax
 Bundle 'elzr/vim-json'
@@ -46,7 +47,6 @@ Bundle 'FuzzyFinder'
 
 " NON GITHUB REPOS
 " ~~~~~~~~~~~~~~~~
-Bundle 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (ie. when working on your own plugin)
 "Bundle 'file:///home/b/path/to/plugin'
 " ...

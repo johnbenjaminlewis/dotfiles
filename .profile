@@ -36,6 +36,8 @@ run_mac() {
 # Runs only for linux
 run_linux() {
     setup_mouse
+    alias ack='ack-grep'
+    alias 'man ack'='man ack-grep'
 }
 
 # Runs for all os types. Runs last
@@ -58,9 +60,9 @@ run_all() {
 }
 
 # Main runner
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ $OSTYPE =~ "darwin" ]]; then
     run_mac
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+elif [[ $OSTYPE =~ "linux" ]]; then
     run_linux
 fi
 
