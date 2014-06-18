@@ -30,7 +30,7 @@ setup_mouse() {
 
 # Runs only for osx
 run_mac() {
-    export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/local/sbin:$PATH"
+    export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/local/sbin:$HOME/Library/Haskell/bin:$PATH"
 }
 
 # Runs only for linux
@@ -42,6 +42,8 @@ run_linux() {
 
 # Runs for all os types. Runs last
 run_all() {
+    setup_ssh
+
     LS_OPTS="--color=auto --group-directories-first"
 
     alias ls="ls $LS_OPTS"
