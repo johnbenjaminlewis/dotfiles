@@ -31,6 +31,7 @@ setup_mouse() {
 # Runs only for osx
 run_mac() {
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/local/sbin:$HOME/Library/Haskell/bin:$PATH"
+    export PATH="/usr/local/opt/go/libexec/bin:$PATH"
 }
 
 # Runs only for linux

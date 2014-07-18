@@ -77,6 +77,14 @@ endif
 
 iab JBL <C-R>=TimeStamp()<cr>
 
+if !exists("*PythonEncoding")
+  fun PythonEncoding()
+    return "# -*- coding: utf-8 -*-"
+  endfun
+endif
+
+iab PYENC <C-R>=PythonEncoding()<cr>
+
 "=> Set Vim user enviroment 
 let mapleader = ","
 let maplocalleader = ";"
@@ -92,6 +100,7 @@ let g:zenburn_visibility=1
 let g:zenburn_high_Contrast=0
 "set background=dark
 colorscheme zenburn
+highlight Comment cterm=italic
 
 
 set tabstop=2   
