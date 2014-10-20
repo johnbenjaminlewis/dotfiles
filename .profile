@@ -45,11 +45,17 @@ run_linux() {
 run_all() {
     setup_ssh
 
-    LS_OPTS="--color=auto --group-directories-first"
+    export LS_OPTS="--color=auto --group-directories-first"
 
+    alias g='git'
+    alias gg='git grep'
+    alias ggrep='git grep'
+    alias gpy="grep --include='*.py'"
     alias ls="ls $LS_OPTS"
     alias ll="ls -Falh $LS_OPTS"
     alias l="ls -Flh $LS_OPTS"
+    alias j="jobs"
+    alias up="cd ~/repos && vagrant up && ssh -t outland 'cd ~/repos/outland; zsh'"
 
     ## Customize Environment
     export CLICOLOR=1

@@ -4,7 +4,7 @@
 [difftool]
 	prompt = false
 [alias]
-	d = difftool
+	  d = difftool
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr, %cn)%Creset' --abbrev-commit --date=relative
     hist = log --graph --pretty=format:'%h %ad | %s%d [%an]' --date=short
     last = log -1 HEAD

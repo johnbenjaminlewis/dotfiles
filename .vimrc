@@ -1,17 +1,17 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
+" VUNDLE -- UrbanDictionary says it's a prime piece of real estate. Maybe they
+" were talking about the grundle.
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
-" required! 
+" Let Vundle manage Vundle (required!)
 Bundle 'gmarik/vundle'
-helptags ~/.vim/bundle/vundle/doc	"load vundle help files
+helptags ~/.vim/bundle/vundle/doc	" load vundle help files
 
 " My Bundles here:
-"
-" original repos on github
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -38,9 +38,6 @@ Bundle 'Valloric/YouCompleteMe'
 " extra js,html syntax highlighting
 Bundle 'pangloss/vim-javascript'
 
-" Python autocomplete
-"Bundle 'davidhalter/jedi-vim'
-"
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -48,8 +45,7 @@ Bundle 'FuzzyFinder'
 " NON GITHUB REPOS
 " ~~~~~~~~~~~~~~~~
 " git repos on your local machine (ie. when working on your own plugin)
-"Bundle 'file:///home/b/path/to/plugin'
-" ...
+"     Bundle 'file:///home/b/path/to/plugin'
 
 filetype plugin indent on     " required!
 "
@@ -62,13 +58,15 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 "
-"
+" END VUNDLE
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 " NerdTree
 :map <C-n> :NERDTreeToggle<CR>
 autocmd vimenter * if (!argc()) | NERDTree | endif
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == 'primary') | q | endif
 
-"Comments
+" Insert macros
+" ~~~~~~~~~~~~~
 if !exists("*TimeStamp")
   fun TimeStamp()
     return "--BL (" . strftime("%d %b %Y %X") . ")"
@@ -85,20 +83,20 @@ endif
 
 iab PYENC <C-R>=PythonEncoding()<cr>
 
-"=> Set Vim user enviroment 
+" Set Vim user enviroment 
 let mapleader = ","
 let maplocalleader = ";"
 set scrolloff=5 "screen scroles when cursor is within 5 lines of head or tail
 set expandtab "set space characters whenever tab is pressed
-set autoindent  "G
+set autoindent
 set smartindent
 set copyindent
 
+" Colorscheme
 let g:zenburn_termcolors=256
 let g:zenburn_termtrans=1
 let g:zenburn_visibility=1
 let g:zenburn_high_Contrast=0
-"set background=dark
 colorscheme zenburn
 highlight Comment cterm=italic
 
@@ -155,7 +153,7 @@ nnoremap <silent> _t :%!perltidy -q<Enter>
 vnoremap <silent> _t :!perltidy -q<Enter>
 
 set foldenable
-set foldmethod=syntax
+"set foldmethod=syntax
 set foldopen=block,hor,mark,percent,quickfix,tag
 
 augroup ft_perl
@@ -231,7 +229,7 @@ set completeopt=longest,menuone,preview
 
 
 " Resize splits when the window is resized
-au VimResized * exe "normal! \<c-w>="
+"au VimResized * exe "normal! \<c-w>="
 
 " Changing directory to match current buffer
 set autochdir
@@ -335,7 +333,6 @@ let g:ghc = "/usr/bin/ghc"
 " 'http://projects.haskell.org/haskellmode-vim/vimfiles/haskellmode-20090430.vba' 
 " to re-install, vim <file.vba>
 "                :so %
-
 
 " tslime is slime for vim using tmux
 " C-c,C-c will send a buffer to the target
@@ -453,6 +450,10 @@ nnoremap <leader>s :%s//<left>
 
 " Rainbow
 "au Syntax * :call rainbow_parenthsis#Toggle()
+
+autocmd BufNewFile,BufRead *.py set foldmethod=indent
+autocmd BufNewFile,BufRead *.py set foldlevel=99
+
 
 
 map <leader>q qg}
