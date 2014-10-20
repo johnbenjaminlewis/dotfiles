@@ -6,6 +6,7 @@ good-names=c,e,f,fh,i,j,k,r,ex,exc,R,Run,T,_
 [FORMAT]
 # 2 spaces
 indent-string='  '
+max-line-length=79
 
 [MESSAGES CONTROL]
 # Disable the following PyLint messages:
