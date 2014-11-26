@@ -25,6 +25,8 @@ Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'vim-scripts/Jinja'
 Bundle 'wincent/Command-T'
+Bundle 'tmhedberg/matchit'
+Bundle 'Rykka/clickable.vim'
 
 "Json syntax
 Bundle 'elzr/vim-json'
@@ -94,11 +96,18 @@ set copyindent
 
 " Colorscheme
 let g:zenburn_termcolors=256
-let g:zenburn_termtrans=1
+let g:zenburn_transparent = 1
 let g:zenburn_visibility=1
-let g:zenburn_high_Contrast=0
+"let g:zenburn_high_Contrast=1 
 colorscheme zenburn
 highlight Comment cterm=italic
+
+
+"rainbow parens
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 
 set tabstop=2   

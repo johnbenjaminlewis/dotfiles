@@ -15,7 +15,7 @@ setup_ssh() {
 
     # Add keys if SSH directory exists
     if [ -d "$SSH_DIR" ]; then
-        find "$SSH_DIR" -name '*\.pem' | xargs ssh-add 2> /dev/null > /dev/null
+        find "$SSH_DIR" -name '*\.pem' | silence xargs ssh-add 
     fi
 }
 
@@ -56,6 +56,8 @@ run_all() {
     alias l="ls -Flh $LS_OPTS"
     alias j="jobs"
     alias up="cd ~/repos && vagrant up && ssh -t outland 'cd ~/repos/outland; zsh'"
+    alias pcat='pygmentize -O style=native -g'
+
 
     ## Customize Environment
     export CLICOLOR=1
