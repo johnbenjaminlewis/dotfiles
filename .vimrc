@@ -96,7 +96,7 @@ set copyindent
 let g:zenburn_termcolors=256
 let g:zenburn_termtrans=1
 let g:zenburn_visibility=1
-let g:zenburn_high_Contrast=1 
+let g:zenburn_high_Contrast=0
 colorscheme zenburn
 highlight Comment cterm=italic
 
