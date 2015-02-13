@@ -12,14 +12,16 @@ Bundle 'gmarik/vundle'
 helptags ~/.vim/bundle/vundle/doc	" load vundle help files
 
 " My Bundles here:
+
+" Git
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" Syntax checking
 Bundle 'scrooloose/syntastic'
 Bundle 'Rykka/riv.vim'
 Bundle 'flazz/vim-colorschemes'
 
-Bundle 'scrooloose/nerdtree'
 Bundle 'vim-perl/vim-perl'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'altercation/vim-colors-solarized'
@@ -34,7 +36,7 @@ Bundle 'elzr/vim-json'
 " Bottom status bar
 Bundle 'bling/vim-airline'
 
-" autocomplete js
+" Autocomplete
 Bundle 'Valloric/YouCompleteMe'
 
 " extra js,html syntax highlighting
@@ -63,10 +65,6 @@ filetype plugin indent on     " required!
 " END VUNDLE
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" NerdTree
-:map <C-n> :NERDTreeToggle<CR>
-autocmd vimenter * if (!argc()) | NERDTree | endif
-
 " Insert macros
 " ~~~~~~~~~~~~~
 if !exists("*TimeStamp")
@@ -88,8 +86,8 @@ iab PYENC <C-R>=PythonEncoding()<cr>
 " Set Vim user enviroment 
 let mapleader = ","
 let maplocalleader = ";"
-set scrolloff=5 "screen scroles when cursor is within 5 lines of head or tail
-set expandtab "set space characters whenever tab is pressed
+set scrolloff=5                 "screen scroles when cursor is within 5 lines of head or tail
+set expandtab                   "set space characters whenever tab is pressed
 set autoindent
 set smartindent
 set copyindent
@@ -131,8 +129,8 @@ let g:airline#extensions#tabline#enabled =  1
 
 set showcmd
 set showmode
-set autoread
-set ruler
+set autoread " Detect if file has been edited. Doesn't work great outside of
+             " gvim
 set cursorline
 set cursorcolumn
 set enc=utf-8
@@ -238,7 +236,7 @@ set completeopt=longest,menuone,preview
 
 
 " Resize splits when the window is resized
-"au VimResized * exe "normal! \<c-w>="
+au VimResized * exe "normal! \<c-w>="
 
 " Changing directory to match current buffer
 set autochdir
@@ -331,8 +329,8 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s+$/
 au BufNewFile,BufRead *.j2 set filetype=jinja
 " au BufWinEnter *.py,*.pyw set filetype=python
 
-" uglify chars past the 80 col limit
-au BufWinEnter *.py,*.pyw let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+" uglify chars past the 79 col limit
+au BufWinEnter *.py,*.pyw let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 
 " Haskell
 au BufEnter *.hs compiler ghc
