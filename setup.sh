@@ -48,9 +48,7 @@ setup_vim() {
       mkdir -p $vimdir/$dir
     fi
   done
-  echo "about to"
-  git clone $VUNDLE_REPO $vimdir/bundle/vundle
-  echo "done"
+  silence git clone $VUNDLE_REPO $vimdir/bundle/vundle
   vim +Silent +BundleInstall +qa
   #$vimdir/bundle/YouCompleteMe/install.sh --clang-completer
 }
