@@ -4,7 +4,9 @@
 # Application Config
 #~~~~~~~~~~~~~~~~~~~
 
-silence() { "$@" 2> /dev/null > /dev/null }
+silence() {
+  "$@" 2> /dev/null > /dev/null
+}
 
 setup_ssh() {
     SSH_DIR="$HOME/.ssh"
@@ -38,7 +40,6 @@ run_mac() {
 run_linux() {
     setup_mouse
     alias ack='ack-grep'
-    alias 'man ack'='man ack-grep'
 }
 
 # Runs for all os types. Runs last
@@ -78,3 +79,4 @@ elif [[ $OSTYPE =~ "linux" ]]; then
 fi
 
 run_all
+
