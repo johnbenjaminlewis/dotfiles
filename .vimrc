@@ -97,7 +97,7 @@ let g:zenburn_termcolors=256
 let g:zenburn_transparent = 1
 let g:zenburn_visibility=1
 "let g:zenburn_high_Contrast=1 
-colorscheme zenburn
+silent! colorscheme zenburn
 highlight Comment cterm=italic
 
 
@@ -124,7 +124,7 @@ set wrapscan
 :set laststatus=2
 let g:airline_theme             = 'zenburn'
 let g:airline_enable_branch     = 1
-let g:airline_enable_syntastic  = 1
+let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled =  1
 
 set showcmd
