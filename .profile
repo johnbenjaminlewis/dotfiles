@@ -56,7 +56,7 @@ run_all() {
     alias ll="ls -Falh $LS_OPTS"
     alias l="ls -Flh $LS_OPTS"
     alias j="jobs"
-    alias up="cd ~/repos && vagrant up && ssh -t outland 'cd ~/repos/outland; zsh'"
+    alias up="cd ~/repos/vagrant && vagrant up && ssh -t outland 'cd ~/repos/outland; zsh'"
     alias pcat='pygmentize -O style=native -g'
 
 
