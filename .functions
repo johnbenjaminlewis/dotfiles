@@ -1,0 +1,10 @@
+# Shared shell functions
+
+silence() {
+  "$@" 2> /dev/null > /dev/null;
+}
+
+
+log_info() {
+  echo "INFO: $@" >&2
+}

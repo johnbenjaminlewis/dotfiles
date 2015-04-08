@@ -1,0 +1,38 @@
+[diff]
+	tool = vimdiff
+	renames = copies
+	mnemonicprefix = true
+[difftool]
+	prompt = false
+[alias]
+	amend = commit --amend -C HEAD
+	br = branch
+	ci = commit
+	co = checkout
+	d = difftool
+	f = fetch
+	hist = log --graph --pretty=format:'%h %ad | %s%d [%an]' --date=short
+	last = log -1 HEAD
+	# You can pass in any args to `lines` that you can pass to $ git log
+	lines = "!f() { git log --numstat --pretty=\"%H\" \"$@\" | awk 'NF==3 {plus+=$1; minus+=$2} END {printf(\"+%d, -%d\\n\", plus, minus)}'; }; f"
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr, %cn)%Creset' --abbrev-commit --date=relative
+	m = mergetool
+	st = status
+	unstage = reset HEAD --
+[merge]
+	tool = vimdiff
+[user]
+	email = ben@keep.com
+	name = Ben Lewis
+[advice]
+	statusHints = false
+[core]
+	whitespace = trailing-space,space-before-tab
+[color]
+	ui = true
+[branch]
+	autosetupmerge = true
+[push]
+	default = current
+[pull]
+	default = current
