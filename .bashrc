@@ -37,3 +37,6 @@ function __prompt_command {
 export PROMPT_COMMAND=__prompt_command
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# Added automatically by dotfiles setup script
+source ~/.profile
