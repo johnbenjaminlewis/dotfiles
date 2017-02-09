@@ -43,6 +43,7 @@ plugins=(
     stack
     sudo
     supervisor
+    systemd
     vagrant
     virtualenvwrapper
 )
