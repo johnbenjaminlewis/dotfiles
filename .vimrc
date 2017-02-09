@@ -17,6 +17,7 @@ helptags ~/.vim/bundle/vundle/doc	" load vundle help files
 " Git
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'lukerandall/haskellmode-vim'
 " Syntax checking
 Bundle 'scrooloose/syntastic'
 Bundle 'flazz/vim-colorschemes'
