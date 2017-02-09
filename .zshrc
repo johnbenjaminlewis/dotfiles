@@ -6,10 +6,14 @@ ZSH_THEME="ben"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
+    aws
     cabal
     celery
+    cp
     cpanm
     django
+    docker
+    docker-compose
     fabric
     history-substring-search
     gem
@@ -21,6 +25,7 @@ plugins=(
     golang
     grunt
     knife
+    knife_ssh
     nmap
     node
     npm
@@ -29,10 +34,13 @@ plugins=(
     python
     perl
     rails
-    rvm
+    redis-cli
     rsync
     ruby
+    rvm
     screen
+    ssh-agent
+    stack
     sudo
     supervisor
     vagrant
@@ -52,14 +60,13 @@ if [[ "${OSTYPE}" =~ "linux" ]]; then
         command-not-found
         debian
         dircycle
-        docker
         ubuntu
+        systemd
     )
 fi
-bindkey \^U backward-kill-line
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 source "${ZSH}/oh-my-zsh.sh"
+bindkey \^U backward-kill-line
 
 
 # User configuration
