@@ -11,7 +11,7 @@ source "${HOME}/.functions"
 setup_ssh() {
     SSH_DIR="${HOME}/.ssh"
     # Start SSH agent if not already started
-    if ! silence pgrep 'ssh-agent'; then
+    if [ -z ${SSH_AUTH_SOCK+x} ]; then
         silence ssh-agent
     fi
 
@@ -42,6 +42,7 @@ run_mac() {
 # Runs only for linux
 run_linux() {
     setup_mouse
+    alias get_battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | sed 's/ //g' | cut -d':' -f2"
     alias ack='ack-grep'
 }
 
