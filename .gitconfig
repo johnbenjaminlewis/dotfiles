@@ -16,9 +16,12 @@
 	# You can pass in any args to `lines` that you can pass to $ git log
 	lines = "!f() { git log --numstat --pretty=\"%H\" \"$@\" | awk 'NF==3 {plus+=$1; minus+=$2} END {printf(\"+%d, -%d\\n\", plus, minus)}'; }; f"
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr, %cn)%Creset' --abbrev-commit --date=relative
+	lga = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr, %cn)%Creset'
 	m = mergetool
 	st = status
 	unstage = reset HEAD --
+	old = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:red)%(objectname:short)%(color:reset) - %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+
 [merge]
 	tool = vimdiff
 [user]
@@ -28,6 +31,7 @@
 	statusHints = false
 [core]
 	whitespace = trailing-space,space-before-tab
+	excludesfile = /Users/b/.gitignore_global
 [color]
 	ui = true
 [branch]
@@ -36,3 +40,6 @@
 	default = current
 [pull]
 	default = current
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

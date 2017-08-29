@@ -17,7 +17,12 @@ helptags ~/.vim/bundle/vundle/doc	" load vundle help files
 " Git
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'lukerandall/haskellmode-vim'
+
+" Haskell
+Bundle 'neovimhaskell/haskell-vim'
+Bundle 'Twinside/vim-hoogle'
+Bundle 'nbouscal/vim-stylish-haskell'
+Bundle 'edkolev/curry.vim'
 " Syntax checking
 Bundle 'scrooloose/syntastic'
 Bundle 'flazz/vim-colorschemes'
@@ -45,6 +50,10 @@ Bundle 'Valloric/MatchTagAlways'
 Bundle 'pangloss/vim-javascript'
 Bundle 'embear/vim-localvimrc'
 Bundle 'godlygeek/csapprox'
+Bundle 'evanmiller/nginx-vim-syntax'
+"yaml
+Bundle 'chase/vim-ansible-yaml'
+Bundle 'hashivim/vim-terraform'
 
 call vundle#end()
 filetype plugin indent on     " required!
@@ -75,6 +84,7 @@ iab PYENC <C-R>=PythonEncoding()<cr>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set encoding=utf-8
 nmap <C-k> :echo 'asdf'
+
 let mapleader = ","
 let maplocalleader = ";"
 "screen scroles when cursor is within 5 lines of head or tail
@@ -161,6 +171,8 @@ set hidden
 " store temp files in home directory and expand file name with percent
 " (indicated with // teminator)
 set directory=$HOME/.vim/tmp//
+" Do we have ctags?
+set tags=tags;/
 
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -188,6 +200,13 @@ nmap <leader>l :redraw! <CR>:echo 'Redrew window'<CR>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Config plugins
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" File explorer settings
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
 
 " Colorscheme {{{
 let g:zenburn_termcolors=256
@@ -259,11 +278,33 @@ augroup END
 
 " Haskell {{{
 augroup Haskell
+  autocmd!
   autocmd BufNewFile,BufRead *.hs set nospell
   autocmd BufEnter *.hs compiler ghc
+  autocmd BufEnter *.hs echo "Haskell"
+  autocmd FileType haskell let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+  autocmd FileType haskell let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+  autocmd FileType haskell let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+  autocmd FileType haskell let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+  autocmd FileType haskell let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+  autocmd FileType haskell let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+  autocmd FileType haskell let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+  autocmd FileType haskell let g:haskell_indent_if = 3
+  autocmd FileType haskell let g:haskell_indent_case = 2
+  autocmd FileType haskell let g:haskell_indent_let = 4
+  autocmd FileType haskell let g:haskell_indent_where = 6
+  autocmd FileType haskell let g:haskell_indent_before_where = 2
+  autocmd FileType haskell let g:haskell_indent_after_bare_where = 2
+  autocmd FileType haskell let g:haskell_indent_do = 3
+  autocmd FileType haskell let g:haskell_indent_in = 1
+  autocmd FileType haskell let g:haskell_indent_guard = 2
+  autocmd FileType haskell let g:cabal_indent_section = 2
+
+
+  autocmd FileType haskell " Syntastic help docs say tabstop=8
+  autocmd FileType haskell set tabstop=8
 augroup END
-let g:haddock_browser = "/usr/bin/firefox"
-let g:ghc = "/usr/bin/ghc"
 " fetch latest haskellmode vimball from
 " 'http://projects.haskell.org/haskellmode-vim/vimfiles/haskellmode-20090430.vba'
 " to re-install, vim <file.vba>
@@ -283,6 +324,13 @@ augroup END
 augroup make
   autocmd!
   autocmd FileType make set noexpandtab tabstop=4 shiftwidth=4 softtabstop=0
+augroup END
+" }}}
+
+" yaml {{{
+augroup yaml 
+  autocmd!
+  autocmd FileType yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 augroup END
 " }}}
 

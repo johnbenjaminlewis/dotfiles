@@ -8,3 +8,21 @@ silence() {
 log_info() {
   echo "INFO: $@" >&2
 }
+
+
+path_append_front() {
+    local new_dir=$1
+
+    if [[ $PATH != *$new_dir* ]]; then
+        export PATH="$new_dir:$PATH"
+    fi
+}
+
+
+path_append_end() {
+    local new_dir=$1
+
+    if [[ $PATH != *$new_dir* ]]; then
+        export PATH="$PATH:$new_dir"
+    fi
+}

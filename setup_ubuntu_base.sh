@@ -39,6 +39,10 @@ if [ -d "$APT_CACHE" ]; then
     sudo rm -rf "${APT_CACHE}/*"
 fi
 
+supports_ipython_six() {
+    python -c 'from sys import version_info as v; assert v.major >= 3 and v.minor >= 3' &> /dev/null
+}
+
 # base packages
 sudo apt-get update && sudo apt-get install -y ${packages[@]}
 
@@ -46,4 +50,8 @@ sudo apt-get update && sudo apt-get install -y ${packages[@]}
 # so run them separately
 sudo apt-get install -y ${js_packages[@]}
 
-sudo pip install -U pip ipython
+if supports_ipython_six; then
+    sudo pip install -U pip ipython
+else
+    sudo pip install -U pip 'ipython<6'
+fi

@@ -1,5 +1,15 @@
 # Oh my zsh
 export ZSH=$HOME/.oh-my-zsh
+source ~/.functions
+
+
+# Pycharm uses a really stripped down $PATH. Correct that _before_
+# calling ohmyzsh plugins.
+path_append_front /usr/local/bin
+if silence which brew; then
+    path_append_front $(brew --prefix coreutils)/libexec/gnubin:
+fi
+
 
 ZSH_CUSTOM="$HOME/.ben-zsh"
 ZSH_THEME="ben"
@@ -26,6 +36,7 @@ plugins=(
     grunt
     knife
     knife_ssh
+    kubectl
     nmap
     node
     npm
@@ -39,7 +50,6 @@ plugins=(
     ruby
     rvm
     screen
-    ssh-agent
     stack
     sudo
     supervisor
