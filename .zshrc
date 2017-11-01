@@ -2,7 +2,6 @@
 export ZSH=$HOME/.oh-my-zsh
 source ~/.functions
 
-
 # Pycharm uses a really stripped down $PATH. Correct that _before_
 # calling ohmyzsh plugins.
 path_append_front /usr/local/bin
@@ -76,6 +75,9 @@ if [[ "${OSTYPE}" =~ "linux" ]]; then
     )
 fi
 
+
+# Don't bitch if glob didn't match
+setopt +o nomatch
 source "${ZSH}/oh-my-zsh.sh"
 bindkey \^U backward-kill-line
 

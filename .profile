@@ -10,16 +10,18 @@ source "${HOME}/.functions"
 
 setup_ssh() {
     local ssh_dir="${HOME}/.ssh"
+
     # Start SSH agent if not already started
     if [ -z ${SSH_AUTH_SOCK+x} ]; then
         echo 'setting SSH'
         silence ssh-agent
         # Add keys if SSH directory exists
-        if [ -d "${ssh_dir}" ]; then
-            ssh-add "${ssh_dir}"/*.pem
-        fi
     else
         echo 'SSH agent already set'
+    fi
+
+    if silence ls "${ssh_dir}"/*.pem; then
+        ssh-add "${ssh_dir}"/*.pem
     fi
 }
 
@@ -53,7 +55,7 @@ run_linux() {
 
 # Runs for all os types. Runs last
 run_all() {
-    #setup_ssh
+    setup_ssh
 
     export LS_OPTS="--color=auto --group-directories-first"
 
