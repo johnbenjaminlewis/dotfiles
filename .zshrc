@@ -12,7 +12,6 @@ fi
 
 ZSH_CUSTOM="$HOME/.ben-zsh"
 ZSH_THEME="ben"
-COMPLETION_WAITING_DOTS="true"
 
 plugins=(
     aws
@@ -42,6 +41,7 @@ plugins=(
     pip
     postgres
     python
+    pyenv
     perl
     rails
     redis-cli
@@ -84,3 +84,10 @@ bindkey \^U backward-kill-line
 
 # User configuration
 source "${HOME}/.profile"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/Cellar/terraform/0.11.7/bin/terraform terraform
+unset COMPLETION_WAITING_DOTS

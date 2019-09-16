@@ -16,20 +16,15 @@ function parse_hg_branch {
 
 function __prompt_command {
     local EXIT="$?" # must do this first
-    PS1="${BBlue}\u${Color_Off}@"
-    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        PS1+="${BRed}\h  "
-    else
-        PS1+="${BGreen}\h  "
-    fi
-    PS1+="${BYellow}\w  ${Yellow}$(parse_git_branch)$(parse_hg_branch)${Color_Off}  "
+    PS1="${IGreen}\u${Color_Off}@${BGreen}\h${Color_Off}  "
+    PS1+="\w  ${Yellow}$(kubectl config current-context 2> /dev/null || echo "<null>")${Color_Off}  "
 
     # Is it bad?
     if [ $EXIT != 0 ]; then
-        PS1+="${Red}→ $EXIT${Color_Off}"      # Add red if exit code non 0
+        PS1+="${Red}$EXIT${Color_Off}"      # Add red if exit code non 0
     fi
 
-    PS1+="\n$ "
+    PS1+="\n → ${BIWhite}\$${Color_off} "
 }
 
 
@@ -38,3 +33,8 @@ export PROMPT_COMMAND=__prompt_command
 
 # Added automatically by dotfiles setup script
 source ~/.profile
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+complete -C /usr/local/Cellar/terraform/0.11.7/bin/terraform terraform

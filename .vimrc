@@ -15,6 +15,7 @@ Bundle 'gmarik/vundle'
 helptags ~/.vim/bundle/vundle/doc	" load vundle help files
 
 " Git
+" -------------------------
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-unimpaired'
 
@@ -23,37 +24,43 @@ Bundle 'neovimhaskell/haskell-vim'
 Bundle 'Twinside/vim-hoogle'
 Bundle 'nbouscal/vim-stylish-haskell'
 Bundle 'edkolev/curry.vim'
-" Syntax checking
-Bundle 'scrooloose/syntastic'
+
+" Themes/UI
+" -------------------------
+Bundle 'bling/vim-airline'
+Bundle 'godlygeek/csapprox'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-airline/vim-airline-themes'
-" Perl Syntax
-Bundle 'vim-perl/vim-perl'
 Bundle 'kien/rainbow_parentheses.vim'
-" I can never get this to work right
-Bundle 'wincent/Command-T'
-" Extend `%` matching
-" Bundle 'tmhedberg/matchit'
-" Less syntax highlighting
+
+" Syntax highlighting
+" -------------------------
 Bundle 'groenewege/vim-less.git'
-" Jinja syntax highlighting
-"Bundle 'mitsuhiko/vim-jinja'
 Bundle 'lepture/vim-jinja'
-"Json syntax
 Bundle 'elzr/vim-json'
-" Bottom status bar
-Bundle 'bling/vim-airline'
-" Autocomplete
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'Valloric/MatchTagAlways'
-" extra js,html syntax highlighting
-Bundle 'pangloss/vim-javascript'
+
+"Bundle 'pangloss/vim-javascript'
+Bundle 'leafgarland/typescript-vim'
+Bundle 'Quramy/tsuquyomi'
+Bundle 'peitalin/vim-jsx-typescript'
+"Bundle 'MaxMEllon/vim-jsx-pretty'
+"Bundle 'HerringtonDarkholme/yats.vim'
+
 Bundle 'embear/vim-localvimrc'
-Bundle 'godlygeek/csapprox'
-Bundle 'evanmiller/nginx-vim-syntax'
 "yaml
-Bundle 'chase/vim-ansible-yaml'
 Bundle 'hashivim/vim-terraform'
+"nginx
+Bundle 'chr4/nginx.vim'
+Bundle 'alvan/vim-closetag'
+
+" Syntax checking, completion and linting
+" -------------------------
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
+Bundle 'wincent/Command-T'
+"Extend `%` matching
+"Bundle 'tmhedberg/matchit'
+Bundle 'Valloric/MatchTagAlways'
 
 call vundle#end()
 filetype plugin indent on     " required!
@@ -69,14 +76,6 @@ if !exists("*TimeStamp")
 endif
 
 iab JBL <C-R>=TimeStamp()<cr>
-
-if !exists("*PythonEncoding")
-  fun PythonEncoding()
-    return "# -*- coding: utf-8 -*-"
-  endfun
-endif
-
-iab PYENC <C-R>=PythonEncoding()<cr>
 
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,6 +116,9 @@ set cursorline
 set cursorcolumn
 set enc=utf-8
 set number
+
+" Search for selected text in visual mode
+vnoremap // y/<C-R>"<CR>
 
 " {{{ Completion
 set completeopt=longest,menuone,preview
@@ -207,13 +209,56 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 
+" Close tag settings
+" " filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
 
 " Colorscheme {{{
-let g:zenburn_termcolors=256
-let g:zenburn_transparent = 1
-let g:zenburn_visibility=1
+set termguicolors
+set background=dark
+"let g:dracula_termcolors=256
+"let g:dracula_transparent = 1
+"let g:dracula_visibility=1
 "let g:zenburn_high_Contrast=1
-silent! colorscheme zenburn
+silent! colorscheme dracula
 " highlight Comment cterm=italic
 " }}}
 
@@ -243,13 +288,14 @@ let g:airline#extensions#tabline#enabled =  1
 
 " Syntastic {{{
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_python_checkers = ['pycodestyle', 'pylint']
 " }}}
 
 " Fugative {{{
 augroup fugative
   autocmd!
   autocmd User fugitive
-    \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+    \ if get(b:, 'fugitive_type', '') =~# '^\%(tree\|blob\)$' |
     \   nnoremap <buffer> .. :edit %:h<CR> |
     \ endif
   autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -316,6 +362,18 @@ augroup ft_javascript
   autocmd!
   autocmd FileType javascript setlocal foldmethod=marker
   autocmd FileType javascript setlocal foldmarker={,}
+  autocmd FileType javascript set expandtab tabstop=2 shiftwidth=2 softtabstop=2
+augroup END
+augroup ft_typescript
+  autocmd!
+  autocmd FileType typescript set expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd FileType typescript.tsx  set expandtab tabstop=2 shiftwidth=2 softtabstop=2
+augroup END
+augroup ft_json
+  autocmd!
+  autocmd FileType json setlocal foldmethod=marker
+  autocmd FileType json setlocal foldmarker={,}
+  autocmd FileType json set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 augroup END
 
 " }}}

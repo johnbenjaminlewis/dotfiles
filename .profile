@@ -40,10 +40,25 @@ run_mac() {
     # Homebrew
     path_append_front /usr/local/sbin
     path_append_front /usr/local/bin
+    if [ -f /usr/libexec/java_home ]; then
+        export JAVA_HOME=$(/usr/libexec/java_home -V 2> /dev/null)
+        export JDK_HOME=$(/usr/libexec/java_home -V 2> /dev/null)
+    fi
     # GNU Core utils
     if silence which brew; then
         path_append_front $(brew --prefix coreutils)/libexec/gnubin
     fi
+
+    if [ -d /Library/TeX/texbin ]; then
+        path_append_front /Library/TeX/texbin
+    fi
+
+    if silence which gcloud; then
+        local sdk_dir="$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
+
+        export PATH="$sdk_dir/bin:$PATH"
+    fi
+
 }
 
 # Runs only for linux
@@ -51,6 +66,10 @@ run_linux() {
     setup_mouse
     alias get_battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | sed 's/ //g' | cut -d':' -f2"
     alias ack='ack-grep'
+    if silence which java; then
+        export JAVA_HOME=$(dirname $(readlink -f $(which java)))
+        export JDK_HOME=$(dirname $(readlink -f $(which java)))
+    fi
 }
 
 # Runs for all os types. Runs last
@@ -69,7 +88,7 @@ run_all() {
     alias j="jobs"
     alias openports='res=$(sudo lsof -Pan -i tcp -i udp) && echo ${res} | head -n1 && echo ${res} | grep -i "listen"'
     alias pcat='pygmentize -O style=native -g'
-    alias up="cd ~/repos/docker-dev && vagrant up --no-provision && ssh outland"
+    alias up="cd ~/repos/keep/saltmine-dev && vagrant up --no-provision && ssh outland"
 
 
     ## Customize Environment
@@ -80,10 +99,6 @@ run_all() {
     # save a lot of history.
     export HISTSIZE=100000
     export HISTFILESIZE=100000
-    if silence which java; then
-        export JAVA_HOME=$(dirname $(readlink -f $(which java)))
-        export JDK_HOME=$(dirname $(readlink -f $(which java)))
-    fi
 
 	# Less Colors for Man Pages
 	export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
@@ -128,7 +143,17 @@ run_all() {
         path_append_front ${HOME}/.rvm/bin
         source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
     fi
+
+    if [ -d "$HOME/.local/bin" ]; then
+        PATH="$HOME/.local/bin:$PATH"
+    fi
 }
 
 # Main runner
 run_all
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+gam() { "/Users/b/bin/gam/gam" "$@" ; }
+eval "$(pyenv init -)"
