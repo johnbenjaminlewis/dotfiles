@@ -1,0 +1,28 @@
+# vim: filetype=sh
+SSH_DIR=~/.ssh
+SSH_ENV="$SSH_DIR/environment"
+
+source ~/.functions
+
+setup_agent() {
+    printf "Initializing a new SSH agent..."
+    ssh-agent | sed 's/^echo/#echo/' >"$SSH_ENV"
+    echo "Done!"
+    chmod 600 "$SSH_ENV"
+    source "$SSH_ENV" >/dev/null
+
+    if silence ls "$SSH_DIR"/*.pem; then
+        ssh-add "$SSH_DIR"/*.pem &
+        # Disown so the agent will persist
+        disown
+    fi
+}
+
+# Conditionally run it
+if [[ -f "$SSH_ENV" ]]; then
+    source "$SSH_ENV"
+    ps -ef | grep "$SSH_AGENT_PID" | silence grep 'ssh-agent$' ||
+        setup_agent
+else
+    setup_agent
+fi

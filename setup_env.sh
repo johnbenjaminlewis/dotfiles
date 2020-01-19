@@ -1,110 +1,53 @@
 #!/bin/bash
+HOME_SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/home
+VIM_SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/vim
+PLUG_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 
-FILE_NAMES=(
-  .bashrc
-  .bash_colors
-  .ben-zsh
-  .functions
-  .gitconfig
-  .profile
-  .psqlrc
-  .pylintrc
-  .vimrc
-  .vimrc
-  .zshrc
-)
-VUNDLE_REPO="https://github.com/gmarik/Vundle.vim.git"
-SOURCE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # Source functions
-source ${SOURCE_DIR}/.functions
+source "$HOME_SOURCE_DIR/_.functions"
 
 
-replace_file() {
-    local basename=$1
-    local origin="$SOURCE_DIR/$basename"
-    local filename="$HOME/$basename"
-    local newname="$HOME/${basename}_bak"
+replace_dotfiles() {
+    for sourcefile in $(find "$HOME_SOURCE_DIR" -maxdepth 1 ! -path "$HOME_SOURCE_DIR"); do
+        local destfile="$HOME/$(basename "$sourcefile" | sed 's/^_//')"
 
-    if [ -f "$filename" ] || [ -d "$filename" ]; then
-        log_info "Backing up '$basename'..."
-        mv "$filename" "$newname"
-    elif [ -L "$filename" ]; then
-        log_info "Removing symlink '$filename' -> '$(readlink -f \"$filename\")'"
-        rm "$filename"
+	echo "from $sourcefile to $destfile"
+        backup_and_rm "$destfile"
+        ln -s "$sourcefile" "$destfile"
+    done
+}
+
+
+setup_ohmyzsh() {
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+        remote_pipe "http://install.ohmyz.sh" /bin/sh
+    else
+        log_info "oh-my-zsh already installed, skipping..."
     fi
-    ln -s "$origin" "$filename"
-}
-
-
-process_files() {
-  for f in ${FILE_NAMES[*]}; do
-    replace_file $f
-  done
-}
-
-
-setup_zsh() {
-  if [ ! -d "$HOME/.oh-my-zsh" ]; then
-   local install_script=$(mktemp)
-   # Don't pipe directly to sh!
-   curl -L http://install.ohmyz.sh > $install_script && /bin/sh $install_script \
-     || log_info "Oh my zsh failed to download..."
-  else
-    log_info "oh-my-zsh already installed, skipping..."
-  fi
-}
-
-
-setup_bash() {
-  # Keep existing .bashrc but make sure it sources ~/.profile
-  local profile_file="$HOME/.profile"
-  local bashrc_file="$HOME/.bashrc"
-  if ! silence grep -P '\..*?\.profile$' "$bashrc_file" && \
-     ! silence grep -P 'source.*?\.profile$' "$bashrc_file"; then
-    cat << EOF >> "$bashrc_file"
-
-# Added automatically by dotfiles setup script
-source ~/.profile
-EOF
-  fi
 }
 
 
 setup_vim() {
-  local vimdir="$HOME/.vim"
-  local vimsubdirs=(tmp bundle)
-  local timeout=3
+    local vimdir="$HOME/.vim"
 
-  mkdir -p $vimdir/tmp
-  for dir in ${vimdirs[*]}; do
-    if [ ! -d $vimdir/$dir ]; then
-      mkdir -p $vimdir/$dir
-    fi
-  done
-  silence git clone $VUNDLE_REPO $vimdir/bundle/vundle
-  vim -E +Silent +BundleInstall +qa
+    rm -rf "$vimdir"
+    mkdir -p "$vimdir/plugged" "$vimdir/tmp"
+    curl -fLo "$vimdir/autoload/plug.vim" --create-dirs "$PLUG_URL"
 
-  # Prompt user to compile you complete me
-  echo "Compile YouCompleteMe? (Or wait $timeout seconds) [yN]"
-  read -t $timeout  do_install
-  if  [[ $do_install =~ ^[Yy]$ ]]; then
-    $vimdir/bundle/YouCompleteMe/install.py --all
-  fi
-  touch ~/.localvimrc_persistent
+    ln -s "$VIM_SOURCE_DIR/coc-settings.json" ~/.vim/coc-settings.json
+    VIM_FIRST_RUN=1 vim -E +silent +PlugInstall +qa
+    VIM_FIRST_RUN=1 vim -E +silent '+CocInstall coc-python' '+CocInstall coc-json' +qa
 }
 
 
 main() {
-  . .profile
+    # Setup oh-my-zsh before moving .zshrc
+    setup_ohmyzsh
+    replace_dotfiles
 
-  # Setup oh-my-zsh before moving .zshrc
-  setup_zsh
-  setup_bash
-  process_files
-
-  # Setup vim after moving .vimrc
-  setup_vim
+    # Setup vim after moving .vimrc
+    setup_vim
 }
 
 

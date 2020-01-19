@@ -1,0 +1,44 @@
+{
+  "python.jediEnabled": true,
+  "python.setInterpreter": "~/.pyenv/shims/python",
+
+  // Require .prettierrc
+  "prettier.requireConfig": true,
+
+  "tslint.enable": true,
+  "tslint.autoFixOnSave": true,
+
+  // Run prettier (and others)
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "Markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  "languageserver": {
+    "haskell": {
+      "command": "hie-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml"
+      ],
+      "filetypes": [
+        "hs",
+        "lhs",
+        "haskell"
+      ],
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true
+        }
+      }
+    }
+  }
+}

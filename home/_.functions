@@ -1,0 +1,52 @@
+# vim: filetype=sh
+# Shared shell functions
+
+silence() {
+	"$@" 2>/dev/null >/dev/null
+}
+
+log_info() {
+	echo "INFO: $@" >&2
+}
+
+path_append_front() {
+	local new_dir=$1
+
+	if [[ $PATH != *$new_dir* ]] && [[ -d "$new_dir" ]]; then
+		export PATH="$new_dir:$PATH"
+	fi
+}
+
+path_append_end() {
+	local new_dir=$1
+
+	if [[ $PATH != *$new_dir* ]] && [[ -d "$new_dir" ]]; then
+		export PATH="$PATH:$new_dir"
+	fi
+}
+
+backup_and_rm() {
+	# Make way for a new file
+	local file="$1"
+	local basename="$(basename "$file")"
+
+	if [ -L "$file" ]; then
+		log_info "Removing symlink '$file' -> '$(readlink -f "$file")'"
+		rm "$file"
+	elif [ -f "$file" ] || [ -d "$file" ]; then
+		log_info "Backing up '$basename'..."
+		mv "$file" "$file.$(date +%F:%R).bak"
+	fi
+}
+
+remote_pipe() {
+	local url=$1
+	local install_script=$(mktemp)
+	shift
+
+	if curl -L "$url" >"$install_script"; then
+		"$@" "$install_script"
+	else
+		log_info "Failed to download! $url"
+	fi
+}
