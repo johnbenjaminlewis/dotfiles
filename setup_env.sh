@@ -1,7 +1,10 @@
 #!/bin/bash
-HOME_SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/home
-VIM_SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/vim
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+
+HOME_SOURCE_DIR="$ROOT_DIR"/home
 PLUG_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+VIM_SOURCE_DIR="$ROOT_DIR"/vim
 
 
 # Source functions
@@ -12,7 +15,7 @@ replace_dotfiles() {
     for sourcefile in $(find "$HOME_SOURCE_DIR" -maxdepth 1 ! -path "$HOME_SOURCE_DIR"); do
         local destfile="$HOME/$(basename "$sourcefile" | sed 's/^_//')"
 
-	echo "from $sourcefile to $destfile"
+        echo "from $sourcefile to $destfile"
         backup_and_rm "$destfile"
         ln -s "$sourcefile" "$destfile"
     done
@@ -35,7 +38,10 @@ setup_vim() {
     mkdir -p "$vimdir/plugged" "$vimdir/tmp"
     curl -fLo "$vimdir/autoload/plug.vim" --create-dirs "$PLUG_URL"
 
-    ln -s "$VIM_SOURCE_DIR/coc-settings.json" ~/.vim/coc-settings.json
+    for f in "$VIM_SOURCE_DIR"/*; do
+        ln -s $f ~/.vim/$(basename $f)
+    done
+
     VIM_FIRST_RUN=1 vim -E +silent +PlugInstall +qa
     VIM_FIRST_RUN=1 vim -E +silent '+CocInstall coc-python' '+CocInstall coc-json' +qa
 }
