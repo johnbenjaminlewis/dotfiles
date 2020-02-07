@@ -23,6 +23,7 @@ packages=(
     iperf
     iproute2mac
     jq
+    less
     lsof
     make
     moreutils

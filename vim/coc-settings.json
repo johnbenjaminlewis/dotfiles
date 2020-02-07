@@ -1,12 +1,18 @@
 {
-  "python.jediEnabled": true,
-  "python.setInterpreter": "~/.pyenv/shims/python",
+  "python": {
+    "jediEnabled": true,
+    "setInterpreter": "~/.pyenv/shims/python"
+  },
 
   // Require .prettierrc
-  "prettier.requireConfig": true,
+  "prettier": {
+      "requireConfig": true
+  },
 
-  "tslint.enable": true,
-  "tslint.autoFixOnSave": true,
+  "tslint": {
+    "enable": true,
+    "autoFixOnSave": true
+  },
 
   // Run prettier (and others)
   "coc.preferences.formatOnSaveFiletypes": [
@@ -14,14 +20,12 @@
     "markdown",
     "Markdown",
     "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
+    "javascriptreact"
   ],
 
   "languageserver": {
     "haskell": {
-      "command": "hie-wrapper",
+      "command": "~/.local/bin/hie-wrapper",
       "args": ["--lsp"],
       "rootPatterns": [
         "*.cabal",
@@ -34,9 +38,18 @@
         "lhs",
         "haskell"
       ],
+      "settings": {
+        "languageServerHaskell": {
+          "hlintOn": true,
+          "maxNumberOfProblems": 10,
+          "completionSnippetsOn": true
+        }
+      },
       "initializationOptions": {
         "languageServerHaskell": {
-          "hlintOn": true
+          "hlintOn": true,
+          "maxNumberOfProblems": 10,
+          "completionSnippetsOn": true
         }
       }
     }

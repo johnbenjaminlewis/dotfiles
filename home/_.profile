@@ -106,6 +106,7 @@ run_all() {
     elif [[ "$OSTYPE" =~ "linux" ]]; then
         run_linux
     fi
+    path_append_front ~/.local/bin
 
     eval "$(pyenv init -)"
 }
