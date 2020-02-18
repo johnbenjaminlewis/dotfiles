@@ -15,6 +15,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'alvan/vim-closetag'
 Plug 'Valloric/MatchTagAlways'
+Plug 'Twinside/vim-haskellFold'
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
@@ -54,6 +55,7 @@ filetype plugin on              " Defines autocommands that'll get executed when
                                 " filetype plugins associated to the filetype recognized.
 
 set autochdir                   " Have Vim set PWD to file's directory
+set autoindent                  " Copy indent from current line when starting a new line
 set autoread                    " Detect if file has changed (Not great outside of gvim)
 set backspace=eol,indent,start  " Make backspace act like most other text editors
 set cursorcolumn                " Highlight current column
