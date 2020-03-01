@@ -7,28 +7,17 @@ source ~/.functions
 # Pycharm uses a really stripped down $PATH. Correct that _before_
 # calling ohmyzsh plugins.
 path_append_front /usr/local/bin
-if silence which brew; then
-    path_append_front $(brew --prefix coreutils)/libexec/gnubin:
-fi
+# path_append_front /usr/local/opt/coreutils/libexec/gnubin:
 
 ZSH_CUSTOM=~/.ben-zsh
 ZSH_THEME="ben"
 
 plugins=(
-    cabal
-    command-not-found
-    django
     docker
     docker-compose
     docker-machine
-    fabric
-    helm
-    history-substring-search
     git
-    git-extras
     gnu-utils
-    kubectl
-    minikube
     nmap
     node
     npm
@@ -38,14 +27,9 @@ plugins=(
     postgres
     pyenv
     python
-    redis-cli
-    rsync
     stack
     sudo
     terraform
-    tmux
-    tmuxinator
-    vagrant
 )
 
 if [[ "${OSTYPE}" =~ "darwin" ]]; then

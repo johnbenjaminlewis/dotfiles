@@ -16,13 +16,6 @@ setup_mouse() {
 
 # Main Runner Functions
 #~~~~~~~~~~~~~~~~~~~~~~
-_add_brew_dir() {
-    local package=$1
-    local subdir=$2
-    if local prefix="$(brew --prefix "$package" 2>/dev/null)"; then
-        path_append_front "$prefix/$subdir"
-    fi
-}
 
 # Runs only for osx
 run_mac() {
@@ -32,18 +25,16 @@ run_mac() {
 
     # GNU Core utils
     if silence which brew; then
-        _add_brew_dir awk /bin
-        # Bin utils breaks pyenv if it's put in the path
-        # _add_brew_dir binutils /bin
-        _add_brew_dir coreutils /libexec/gnubin
-        _add_brew_dir findutils /libexec/gnubin
-        _add_brew_dir gnu-sed /bin
-        _add_brew_dir grep /libexec/gnubin
-        _add_brew_dir lsof /bin
+        path_append_front /usr/local/opt/awk/bin
+        path_append_front /usr/local/opt/coreutils/libexec/gnubin
+        path_append_front /usr/local/opt/findutils/libexec/gnubin
+        path_append_front /usr/local/opt/gnu-sed/bin
+        path_append_front /usr/local/opt/grep/libexec/gnubin
+        path_append_front /usr/local/opt/lsof/bin
     fi
 
     path_append_front /Library/TeX/texbin
-    path_append_front "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
+    path_append_front /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
 
 }
 
