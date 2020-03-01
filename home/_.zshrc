@@ -64,6 +64,8 @@ setopt SHARE_HISTORY          # Share history between all sessions.
 
 source "$ZSH/oh-my-zsh.sh"
 bindkey \^U backward-kill-line
+bindkey \^B backward-word
+bindkey \^F forward-word
 
 # User configuration
 source ~/.profile
