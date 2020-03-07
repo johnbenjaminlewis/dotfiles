@@ -40,7 +40,7 @@ run_mac() {
 
 # Runs only for linux
 run_linux() {
-    setup_mouse
+    . ~/.xinitrc
     alias get_battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | sed 's/ //g' | cut -d':' -f2"
     alias ack='ack-grep'
 }
