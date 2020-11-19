@@ -19,9 +19,6 @@ plugins=(
     git
     gnu-utils
     nmap
-    node
-    npm
-    npx
     pip
     pipenv
     postgres
