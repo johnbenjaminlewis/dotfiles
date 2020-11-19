@@ -1,4 +1,5 @@
-nnoremap <leader>g :GFiles<CR>
+let g:fzf_action = { 'enter': 'tabedit' }
 nnoremap <leader>c :Commits<CR>
-nnoremap <leader>f :FZF ~<CR>
+nnoremap <leader>h :FZF ~<CR>
+nnoremap <expr> <leader>f (FugitiveHead() != '' ? ':GFiles --cached --others --exclude-standard<CR>' : ':Files<CR>')
 nnoremap <leader>b :BCommits<CR>
