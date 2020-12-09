@@ -62,7 +62,7 @@ set cursorcolumn                " Highlight current column
 set cursorline                  " Highlight current line
 set directory=$HOME/.vim/tmp//  " store temp files in home directory and expand file name with percent
                                 " (indicated with // teminator)
-set foldmethod=marker           " Enable folding triggered by markers (the "{{{...}}}" things in your code)
+set foldmethod=indent           " Enable folding triggered by indent level
 set foldlevelstart=20           " Default fold level when opening a buffer, like an autocmd
 set hidden                      " unwritten buffers will remain in the background
 set lazyredraw                  " Redraw only when we need to (helps macros go faster)
@@ -107,6 +107,8 @@ nnoremap <leader><space> :nohlsearch<CR>
 " }}}
 
 """ {{{ Remap keys
+vnoremap <leader>c "*yy
+vnoremap <leader>p "*p
 
 " {{{ Indent/unindent visual mode selection
 map <tab>       >gv
