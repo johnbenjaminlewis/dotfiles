@@ -16,6 +16,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'alvan/vim-closetag'
 Plug 'Valloric/MatchTagAlways'
 Plug 'Twinside/vim-haskellFold'
+Plug 'masukomi/vim-markdown-folding'
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()

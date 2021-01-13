@@ -15,13 +15,16 @@
   },
 
   // Run prettier (and others)
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "markdown",
-    "Markdown",
-    "javascript",
-    "javascriptreact"
-  ],
+  "coc.preferences": {
+    "jumpCommand": "tabedit",
+    "formatOnSaveFiletypes": [
+        "css",
+        "markdown",
+        "Markdown",
+        "javascript",
+        "javascriptreact"
+    ],
+  },
 
   "languageserver": {
     "haskell": {

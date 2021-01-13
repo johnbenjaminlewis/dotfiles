@@ -43,7 +43,12 @@ setup_vim() {
     done
 
     VIM_FIRST_RUN=1 vim -E +silent +PlugInstall +qa
-    VIM_FIRST_RUN=1 vim -E +silent '+CocInstall coc-python' '+CocInstall coc-json' '+CocInstall coc-tsserver' +qa
+    VIM_FIRST_RUN=1 vim -E +silent \
+        '+CocInstall coc-python' \
+        '+CocInstall coc-json' \
+        '+CocInstall coc-snippets' \
+        '+CocInstall coc-tsserver' \
+        +qa
 }
 
 
