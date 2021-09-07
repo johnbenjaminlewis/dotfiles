@@ -22,7 +22,6 @@ plugins=(
     pip
     pipenv
     postgres
-    pyenv
     python
     stack
     sudo

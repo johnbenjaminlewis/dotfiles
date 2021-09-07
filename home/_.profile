@@ -82,6 +82,7 @@ run_all() {
 
     export LSCOLORS="gxBxhxDxfxhxhxhxhxcxcx"
     export PAGER='less'
+    export PYENV_ROOT="$HOME/.pyenv"
     export PYTHON_CONFIGURE_OPTS='--enable-framework'
     export TERM='xterm-256color'
 
@@ -99,7 +100,7 @@ run_all() {
     fi
     path_append_front ~/.local/bin
 
-    eval "$(pyenv init -)"
+    eval "$(pyenv init --path)"
 }
 
 # Main runner

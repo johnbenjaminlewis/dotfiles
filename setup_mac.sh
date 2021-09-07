@@ -27,6 +27,7 @@ packages=(
     lsof
     make
     moreutils
+    mtr
     nano
     netcat
     node
@@ -51,6 +52,7 @@ packages=(
 )
 
 cask_packages=(
+    amethyst
     charles
     docker
     google-cloud-sdk
@@ -58,11 +60,15 @@ cask_packages=(
     google-earth-pro
     iterm2
     mactex
+    private-internet-access
+    slack
     spotify
+    transmission
     vagrant
     vagrant-manager
     virtualbox
     virtualbox-extension-pack
+    vlc
     wireshark
 )
 
@@ -71,7 +77,6 @@ gcloud_components=(
     beta
     gsutil
     kubectl
-    minikube
 )
 
 # Run it!
@@ -82,8 +87,7 @@ fi
 
 brew update
 brew upgrade
-brew cask upgrade
 brew install "${packages[@]}"
-brew cask install "${cask_packages[@]}"
+brew install --cask "${cask_packages[@]}"
 
 gcloud components install --quiet "${gcloud_components[@]}"

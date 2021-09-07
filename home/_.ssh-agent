@@ -6,6 +6,7 @@ source ~/.functions
 
 setup_agent() {
     printf "Initializing a new SSH agent..."
+    mkdir --mode 700 --parents $SSH_DIR
     ssh-agent | sed 's/^echo/#echo/' >"$SSH_ENV"
     echo "Done!"
     chmod 600 "$SSH_ENV"
