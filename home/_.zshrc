@@ -31,7 +31,7 @@ plugins=(
 if [[ "${OSTYPE}" =~ "darwin" ]]; then
     plugins+=(
         brew
-        osx
+        macos
     )
 fi
 

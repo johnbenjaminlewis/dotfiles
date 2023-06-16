@@ -20,21 +20,22 @@ setup_mouse() {
 # Runs only for osx
 run_mac() {
     # Homebrew
-    path_append_front /usr/local/sbin
-    path_append_front /usr/local/bin
+    local prefix="$(brew --prefix)"
+    path_append_front "$prefix/sbin"
+    path_append_front "$prefix/bin"
 
     # GNU Core utils
     if silence which brew; then
-        path_append_front /usr/local/opt/awk/bin
-        path_append_front /usr/local/opt/coreutils/libexec/gnubin
-        path_append_front /usr/local/opt/findutils/libexec/gnubin
-        path_append_front /usr/local/opt/gnu-sed/bin
-        path_append_front /usr/local/opt/grep/libexec/gnubin
-        path_append_front /usr/local/opt/lsof/bin
+        path_append_front "$prefix/opt/awk/bin"
+        path_append_front "$prefix/opt/coreutils/libexec/gnubin"
+        path_append_front "$prefix/opt/findutils/libexec/gnubin"
+        path_append_front "$prefix/opt/gnu-sed/bin"
+        path_append_front "$prefix/opt/grep/libexec/gnubin"
+        path_append_front "$prefix/opt/lsof/bin"
     fi
 
     path_append_front /Library/TeX/texbin
-    path_append_front /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+    path_append_front "$prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
 
 }
 
