@@ -98,7 +98,14 @@ run_all() {
     elif [[ "$OSTYPE" =~ "linux" ]]; then
         run_linux
     fi
+
+    # haskell
     path_append_front ~/.local/bin
+    if silence which ghcup; then
+        local hls_bins_dir="$(dirname "$(ghcup whereis cabal)")"
+
+        path_append_front "$hls_bins_dir"
+    fi
 
     eval "$(pyenv init --path)"
 }

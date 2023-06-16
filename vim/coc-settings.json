@@ -28,7 +28,7 @@
 
   "languageserver": {
     "haskell": {
-      "command": "~/.local/bin/hie-wrapper",
+      "command": "haskell-language-server-wrapper",
       "args": ["--lsp"],
       "rootPatterns": [
         "*.cabal",
