@@ -108,7 +108,9 @@ run_all() {
         path_append_front "$hls_bins_dir"
     fi
 
-    eval "$(pyenv init --path)"
+    if silence which pyenv; then
+        eval "$(pyenv init --path)"
+    fi
 }
 
 # Main runner
